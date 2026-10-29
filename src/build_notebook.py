@@ -1,0 +1,297 @@
+"""
+Generates the complete Jupyter Notebook for FraudLens AI.
+"""
+
+import json
+
+def build_notebook():
+    nb = {
+        "cells": [
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "# 🛡️ FraudLens AI: Intelligent Financial Fraud Detection\n",
+                    "### Complete Machine Learning Lifecycle & PBL Evaluation Rubric Implementation\n",
+                    "**Objective:** Detect fraudulent financial transactions using Supervised Classification and Unsupervised Anomaly Detection.\n",
+                    "\n",
+                    "**PBL Rubric Mapping (100 Marks):**\n",
+                    "1. Problem Definition & Business Understanding (10 marks)\n",
+                    "2. Dataset & Data Understanding (10 marks)\n",
+                    "3. Data Preprocessing & Cleaning (10 marks)\n",
+                    "4. Exploratory Data Analysis (EDA) (10 marks)\n",
+                    "5. Feature Engineering & Selection (10 marks)\n",
+                    "6. Model Selection & Implementation (15 marks)\n",
+                    "7. Model Evaluation & Validation (15 marks)\n",
+                    "8. Business Insights & Recommendations (10 marks)\n",
+                    "9. Deployment / Usable Interface (5 marks)\n",
+                    "10. Documentation & Presentation (5 marks)"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 1. Setup & Environment Imports\n",
+                    "Importing core data manipulation, visualization, modeling, and evaluation libraries."
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "import os\n",
+                    "import sys\n",
+                    "import numpy as np\n",
+                    "import pandas as pd\n",
+                    "import matplotlib.pyplot as plt\n",
+                    "import seaborn as sns\n",
+                    "\n",
+                    "# Set plot styling\n",
+                    "sns.set_theme(style=\"whitegrid\", palette=\"muted\")\n",
+                    "plt.rcParams.update({'font.sans-serif': 'Arial', 'font.size': 11})\n",
+                    "\n",
+                    "# Verify working directory and import source modules\n",
+                    "project_root = os.path.abspath('..') if os.path.exists('../src') else os.path.abspath('.')\n",
+                    "if project_root not in sys.path:\n",
+                    "    sys.path.insert(0, project_root)\n",
+                    "\n",
+                    "print(f\"Project Root: {project_root}\")"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 2. Dataset Acquisition & Understanding (10 Marks)\n",
+                    "We utilize the benchmark financial transaction stream modeled after **Kaggle PaySim** (`ntnu-testimon/paysim1`).\n",
+                    "- Explores transaction types (`CASH_IN`, `CASH_OUT`, `DEBIT`, `PAYMENT`, `TRANSFER`)\n",
+                    "- Audits severe class imbalance (0.5% fraud vs 99.5% legitimate)"
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "from src.data_generator import generate_financial_data\n",
+                    "\n",
+                    "data_path = os.path.join(project_root, 'data/raw/financial_transactions.csv')\n",
+                    "if not os.path.exists(data_path):\n",
+                    "    generate_financial_data(output_path=data_path)\n",
+                    "\n",
+                    "df = pd.read_csv(data_path)\n",
+                    "print(f\"Dataset shape: {df.shape}\")\n",
+                    "display(df.head(5))\n",
+                    "print(\"\\n--- Data Info ---\")\n",
+                    "df.info()"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 3. Exploratory Data Analysis (EDA) (10 Marks)\n",
+                    "Visualizing class skew, transaction types, log-amount distributions, and temporal cyber-attack windows."
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "# 1. Class Imbalance Breakdown\n",
+                    "fig, ax = plt.subplots(figsize=(7, 4.5))\n",
+                    "counts = df['is_fraud'].value_counts()\n",
+                    "bars = ax.bar(['Legitimate (0)', 'Fraudulent (1)'], counts.values, color=['#2b5c8f', '#d9534f'], width=0.45)\n",
+                    "ax.set_yscale('log')\n",
+                    "ax.set_title(\"Transaction Class Distribution (Log Scale)\", fontsize=13, weight='bold')\n",
+                    "for bar in bars:\n",
+                    "    y = bar.get_height()\n",
+                    "    ax.text(bar.get_x() + bar.get_width()/2.0, y * 1.15, f\"{y:,} ({y/len(df)*100:.2f}%)\", ha='center', weight='bold')\n",
+                    "plt.tight_layout()\n",
+                    "plt.show()"
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "# 2. Fraud Vulnerability by Transaction Type\n",
+                    "type_summary = df.groupby('type')['is_fraud'].agg(['count', 'sum']).reset_index()\n",
+                    "type_summary['fraud_pct'] = (type_summary['sum'] / type_summary['count']) * 100.0\n",
+                    "\n",
+                    "plt.figure(figsize=(8, 4.5))\n",
+                    "sns.barplot(data=type_summary, x='type', y='fraud_pct', hue='type', palette='Reds_r', legend=False)\n",
+                    "plt.title(\"Fraud Occurrence Rate (%) by Transaction Type\", fontsize=13, weight='bold')\n",
+                    "plt.ylabel(\"Fraud Rate (%)\")\n",
+                    "plt.xlabel(\"Transaction Type\")\n",
+                    "plt.show()"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 4. Feature Engineering (10 Marks)\n",
+                    "Domain-engineered features to capture fraud mechanics:\n",
+                    "1. `error_balance_orig`: Originator balance discrepancy\n",
+                    "2. `orig_account_drained`: Account liquidation flag\n",
+                    "3. `dest_zero_initial` & `dest_zero_after`: Mule account behavior\n",
+                    "4. `amount_to_orig_ratio`: Relative financial impact\n",
+                    "5. `hour_of_day`, `is_night_hours`: Temporal anomaly patterns"
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "from src.feature_engineering import engineer_features, get_feature_columns\n",
+                    "\n",
+                    "df_eng = engineer_features(df)\n",
+                    "print(f\"Total features after engineering: {df_eng.shape[1]}\")\n",
+                    "display(df_eng[['amount', 'error_balance_orig', 'orig_account_drained', 'dest_zero_initial', 'is_night_hours', 'is_fraud']].head(5))"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 5. Preprocessing & Data Leakage Prevention (10 Marks)\n",
+                    "We split into Train and Test partitions **prior** to scaling using Stratified splitting, ensuring no leakage."
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "from src.preprocessing import FraudDataPipeline\n",
+                    "\n",
+                    "pipeline = FraudDataPipeline(target_col='is_fraud')\n",
+                    "X_train, X_test, y_train, y_test = pipeline.split_and_prepare(df, test_size=0.20, random_state=42)\n",
+                    "print(f\"X_train shape: {X_train.shape}, X_test shape: {X_test.shape}\")"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 6. Model Training & Comparison (15 Marks)\n",
+                    "We implement a multi-model benchmarking pipeline:\n",
+                    "1. Cost-Sensitive Logistic Regression\n",
+                    "2. Balanced Random Forest Classifier\n",
+                    "3. Histogram Gradient Boosting Classifier\n",
+                    "4. XGBoost Classifier\n",
+                    "5. Isolation Forest (Unsupervised Anomaly Detector)"
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "from src.models import FraudLensModelSuite\n",
+                    "\n",
+                    "suite = FraudLensModelSuite(random_state=42)\n",
+                    "suite.initialize_models(scale_pos_weight=150.0)\n",
+                    "suite.train_supervised(X_train, y_train, X_test, y_test)\n",
+                    "suite.train_unsupervised(X_train, y_train, X_test, y_test)"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 7. Model Evaluation & ROC / PR Benchmarks (15 Marks)\n",
+                    "Precision-Recall AUC is the gold standard for severe class imbalance."
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "metrics_df = pd.DataFrame(suite.model_metrics).T\n",
+                    "display(metrics_df[['pr_auc', 'roc_auc', 'recall', 'precision', 'f1', 'fpr']])"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 8. Business Impact & Financial ROI Analysis (10 Marks)\n",
+                    "Converting machine learning outputs into real-world dollar savings and risk mitigation."
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "from src.evaluate import evaluate_cost_benefit, find_optimal_threshold\n",
+                    "\n",
+                    "best_clf = suite.best_classifier\n",
+                    "y_prob = best_clf.predict_proba(X_test)[:, 1]\n",
+                    "test_amounts = df.loc[X_test.index, 'amount'].values if hasattr(X_test, 'index') else np.ones(len(y_test)) * 1000\n",
+                    "\n",
+                    "best_thresh, _ = find_optimal_threshold(y_test, y_prob)\n",
+                    "financial_results = evaluate_cost_benefit(y_test, (y_prob >= best_thresh).astype(int), test_amounts)\n",
+                    "\n",
+                    "print(f\"Optimal Decision Threshold: {best_thresh:.3f}\")\n",
+                    "for k, v in financial_results.items():\n",
+                    "    print(f\"{k}: {v}\")"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "## 9. Conclusion & Deployment\n",
+                    "The trained models and preprocessing pipelines are serialized in `models/`.\n",
+                    "To launch the interactive web dashboard:\n",
+                    "```bash\n",
+                    "streamlit run app.py\n",
+                    "```"
+                ]
+            }
+        ],
+        "metadata": {
+            "kernelspec": {
+                "display_name": "Python 3",
+                "language": "python",
+                "name": "python3"
+            },
+            "language_info": {
+                "codemirror_mode": {"name": "ipython", "version": 3},
+                "file_extension": ".py",
+                "mimetype": "text/x-python",
+                "name": "python",
+                "nbformat": 4,
+                "nbformat_minor": 2,
+                "version": "3.14.3"
+            }
+        },
+        "nbformat": 4,
+        "nbformat_minor": 2
+    }
+    
+    with open("notebooks/fraudlens_complete_pipeline.ipynb", "w", encoding="utf-8") as f:
+        json.dump(nb, f, indent=2)
+    print("Notebook successfully generated at notebooks/fraudlens_complete_pipeline.ipynb")
+
+if __name__ == "__main__":
+    build_notebook()
+

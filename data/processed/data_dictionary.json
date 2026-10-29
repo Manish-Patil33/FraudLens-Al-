@@ -1,0 +1,16 @@
+{
+    "step": "Time step mapping 1 unit = 1 hour (total 720 hours = 30 days)",
+    "type": "Transaction type: CASH_IN, CASH_OUT, DEBIT, PAYMENT, TRANSFER",
+    "amount": "Transaction value in currency units",
+    "nameOrig": "Customer initiator account ID (starts with C)",
+    "oldbalanceOrg": "Account balance of origin before transaction",
+    "newbalanceOrig": "Account balance of origin after transaction",
+    "nameDest": "Recipient account ID (starts with C for customer, M for merchant)",
+    "oldbalanceDest": "Account balance of recipient before transaction",
+    "newbalanceDest": "Account balance of recipient after transaction",
+    "device_trust_score": "Continuous score [0-1] based on device fingerprinting, TLS, and browser history",
+    "location_risk_score": "Continuous score [0-1] based on IP geo-velocity and VPN/proxy detection",
+    "transaction_channel": "Access channel: MOBILE_APP, WEB_PORTAL, POS_TERMINAL, ATM",
+    "is_flagged_fraud": "Rule-based legacy flag: triggers when TRANSFER amount > 200,000",
+    "is_fraud": "Target ground truth label: 1 if fraudulent transaction, 0 if legitimate"
+}

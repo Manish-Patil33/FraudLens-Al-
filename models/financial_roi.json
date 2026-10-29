@@ -1,0 +1,13 @@
+{
+    "true_negatives": 11940,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "true_positives": 60,
+    "total_fraud_volume_usd": 1567200.22,
+    "fraud_prevented_usd": 1567200.22,
+    "fraud_leaked_usd": 0.0,
+    "operational_friction_cost_usd": 1500.0,
+    "net_financial_savings_usd": 1565700.22,
+    "prevention_efficiency_pct": 100.0,
+    "roi_pct": 104380.01
+}
