@@ -1,9 +1,13 @@
 # 🛡️ FraudLens AI: Financial Transaction Fraud Detection
 ### Dual-Engine Machine Learning System: Classification & Anomaly Detection
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-fraudlensai1.streamlit.app-2563EB?style=for-the-badge&logo=streamlit&logoColor=white)](https://fraudlensai1.streamlit.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-FraudLens--Al--1E3A8A?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Manish-Patil33/FraudLens-Al-)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Scikit--Learn%20%7C%20XGBoost-orange.svg)](https://scikit-learn.org/)
-[![Streamlit App](https://img.shields.io/badge/Deployment-Streamlit%20Web%20App-red.svg)](https://streamlit.io/)
 [![Evaluation](https://img.shields.io/badge/PBL%20Rubrics-100%2F100%20Marks-brightgreen.svg)](#evaluation-rubrics-compliance)
+
+> 🌐 **Live Web Application**: [https://fraudlensai1.streamlit.app/](https://fraudlensai1.streamlit.app/)  
+> 💻 **GitHub Repository**: [https://github.com/Manish-Patil33/FraudLens-Al-](https://github.com/Manish-Patil33/FraudLens-Al-)
 
 ---
 

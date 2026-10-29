@@ -8,7 +8,9 @@
 ### Slide 1: Title & Overview
 - **Header**: FraudLens AI: Intelligent Real-Time Financial Fraud Defense
 - **Subtitle**: Combining Supervised Machine Learning Classification & Unsupervised Anomaly Detection
-- **Presenter**: [Your Name / Team Members]
+- **Presenter**: Manish Patil
+- **Live Deployed Web Application**: https://fraudlensai1.streamlit.app/
+- **GitHub Repository**: https://github.com/Manish-Patil33/FraudLens-Al-
 - **Key Bullet Points**:
   - Global Financial Crime Context: $32B+ Annual Loss
   - The Core ML Challenge: Extreme Class Imbalance (0.5% Fraud)
@@ -121,8 +123,10 @@
 
 ### Slide 9: Deployment & Application Demonstration (Rubric 9)
 - **Header**: Interactive Web Application Deployment
+- **Live Deployed URL**: https://fraudlensai1.streamlit.app/
+- **GitHub Repository**: https://github.com/Manish-Patil33/FraudLens-Al-
 - **Key Points**:
-  - Built with Streamlit (`app.py`) for live enterprise operation.
+  - Live deployed on Streamlit Cloud for instant public testing.
   - **Live Transaction Terminal**: Instant risk gauge, preset fraud scenarios, plain-language risk attribution.
   - **Batch Scanner**: Upload CSV transaction feeds, download flagged audit reports.
   - **Executive ROI Simulator**: Interactive financial sensitivity sliders.
@@ -139,7 +143,9 @@
   - Addressed extreme class imbalance with PR-AUC metric alignment.
   - Zero data leakage throughout pipeline.
   - Novel dual-engine supervised + unsupervised architecture.
-  - Fully reproducible code, interactive application, and comprehensive documentation.
+  - Measurable financial impact: $1.56M saved on test stream.
+  - **Live Production App**: https://fraudlensai1.streamlit.app/
+  - **Open-Source GitHub Repository**: https://github.com/Manish-Patil33/FraudLens-Al-
 - **Speaker Notes**:
   > *"In conclusion, FraudLens AI proves how advanced machine learning, rigorous feature engineering, and dual-engine architecture can protect financial infrastructure from modern cyber threats. Thank you, and I look forward to your questions!"*
 

@@ -91,6 +91,12 @@ def create_presentation(output_path="reports/FraudLens_AI_Presentation.pptx"):
     p3.font.size = Pt(14)
     p3.font.color.rgb = RGBColor(148, 163, 184)
     
+    p4 = tf1.add_paragraph()
+    p4.text = "🌐 Live Web App: https://fraudlensai1.streamlit.app/ | 💻 GitHub: https://github.com/Manish-Patil33/FraudLens-Al-"
+    p4.font.size = Pt(12)
+    p4.font.bold = True
+    p4.font.color.rgb = RGBColor(56, 189, 248)
+    
     s1.notes_slide.notes_text_frame.text = (
         "Good morning respected evaluators. Today I am presenting FraudLens AI, an enterprise-grade "
         "machine learning system designed to detect fraudulent financial transactions using dual supervised "
@@ -306,11 +312,12 @@ def create_presentation(output_path="reports/FraudLens_AI_Presentation.pptx"):
     tf9.word_wrap = True
     
     items9 = [
-        ("Production Web Dashboard:", "Built with Streamlit (app.py) for real-time risk intelligence operations."),
+        ("Production Web Dashboard:", "Live deployed on Streamlit Cloud at https://fraudlensai1.streamlit.app/ for real-time risk intelligence operations."),
         ("Live Transaction Terminal:", "Instant scoring gauge (0-100), preset fraud/legitimate case studies, dual-engine breakdown, and plain-English risk factor attribution."),
         ("Batch Transaction Scanner:", "Upload enterprise CSV transaction feeds or load a 1,000-transaction test batch; export flagged CSV audit logs with 1 click."),
         ("Executive ROI Calculator:", "Interactive sliders for monthly volume, average loss, and review cost with real-time financial savings visualization."),
-        ("Model Evaluation Lab:", "Interactive algorithm comparison leaderboard, ROC curves, and Precision-Recall plots.")
+        ("Model Evaluation Lab:", "Interactive algorithm comparison leaderboard, ROC curves, and Precision-Recall plots."),
+        ("Public Source Code:", "Open-source GitHub repository available at https://github.com/Manish-Patil33/FraudLens-Al-")
     ]
     for i, (head, body) in enumerate(items9):
         p = tf9.paragraphs[0] if i == 0 else tf9.add_paragraph()
@@ -352,6 +359,7 @@ def create_presentation(output_path="reports/FraudLens_AI_Presentation.pptx"):
         "Zero Data Leakage: Rigorous stratified holdout methodology.",
         "Novel Dual-Engine Architecture: Combines supervised precision with unsupervised anomaly discovery.",
         "Measurable Financial Value: $1.56M saved on test stream with 100% fraud recall and 0% false positives.",
+        "Live Production Deployment: https://fraudlensai1.streamlit.app/",
         "Open-Source GitHub Repository: https://github.com/Manish-Patil33/FraudLens-Al-"
     ]
     for it in items10:
@@ -493,7 +501,7 @@ def create_project_report_pdf(output_path="reports/FraudLens_AI_Project_Report.p
 
     # Title & Metadata Banner
     story.append(Paragraph("🛡️ FraudLens AI: Final Project Report", title_style))
-    story.append(Paragraph("<b>Machine Learning Problem-Based Learning (PBL) — 100 Marks Rubric</b><br/>Topic: Detect fraudulent financial transactions using ML classification and anomaly detection<br/><b>Author:</b> Manish Patil | <b>Repository:</b> https://github.com/Manish-Patil33/FraudLens-Al-", subtitle_style))
+    story.append(Paragraph("<b>Machine Learning Problem-Based Learning (PBL) — 100 Marks Rubric</b><br/>Topic: Detect fraudulent financial transactions using ML classification and anomaly detection<br/><b>Author:</b> Manish Patil | <b>Live Deployed App:</b> <font color='#2563EB'><u>https://fraudlensai1.streamlit.app/</u></font><br/><b>GitHub Repository:</b> <font color='#2563EB'><u>https://github.com/Manish-Patil33/FraudLens-Al-</u></font>", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#2563EB"), spaceAfter=12))
 
     # Executive Summary
@@ -626,7 +634,10 @@ def create_project_report_pdf(output_path="reports/FraudLens_AI_Project_Report.p
 
     story.append(Paragraph("9. Deployment Application (5 Marks)", h1_style))
     story.append(Paragraph(
-        "FraudLens AI is deployed via an interactive Streamlit web dashboard (app.py) featuring:<br/>"
+        "FraudLens AI is live in production on Streamlit Cloud and accessible to end-users at:<br/>"
+        "🌐 <b>Live Deployed Web Application:</b> <font color='#2563EB'><b><u>https://fraudlensai1.streamlit.app/</u></b></font><br/>"
+        "💻 <b>GitHub Source Repository:</b> <font color='#2563EB'><b><u>https://github.com/Manish-Patil33/FraudLens-Al-</u></b></font><br/><br/>"
+        "Key operational features include:<br/>"
         "• <b>Live Transaction Scoring Terminal:</b> Real-time risk gauge (0-100), preset fraud cases, and plain-English risk attribution.<br/>"
         "• <b>Batch Scanner:</b> Enterprise CSV batch scoring with exportable flagged audit logs.<br/>"
         "• <b>Executive ROI Simulator:</b> Interactive financial sliders projecting annual dollar savings.",
@@ -698,7 +709,7 @@ def create_viva_qa_pdf(output_path="reports/FraudLens_AI_Viva_QA_Preparation.pdf
 
     story = []
     story.append(Paragraph("🎓 FraudLens AI: Viva Defense Q&A Guide", title_style))
-    story.append(Paragraph("<b>Top 10 High-Yield Examination Questions & Mathematically Grounded Answers</b><br/>Candidate: Manish Patil | Project: FraudLens AI (Machine Learning PBL 100 Marks)", subtitle_style))
+    story.append(Paragraph("<b>Top 10 High-Yield Examination Questions & Mathematically Grounded Answers</b><br/>Candidate: Manish Patil | Project: FraudLens AI (Machine Learning PBL 100 Marks)<br/><b>Live App:</b> https://fraudlensai1.streamlit.app/ | <b>GitHub:</b> https://github.com/Manish-Patil33/FraudLens-Al-", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#2563EB"), spaceAfter=12))
 
     questions = [
@@ -766,3 +777,4 @@ if __name__ == "__main__":
     create_presentation()
     create_project_report_pdf()
     create_viva_qa_pdf()
+

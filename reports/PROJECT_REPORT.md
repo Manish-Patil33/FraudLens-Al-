@@ -3,6 +3,9 @@
 **Course:** Machine Learning & Intelligent Systems  
 **Evaluation Standard:** 100-Mark PBL Rubrics  
 **Topic:** Detect fraudulent financial transactions using ML classification and anomaly detection  
+**Author:** Manish Patil  
+**Live Deployed Web Application:** [https://fraudlensai1.streamlit.app/](https://fraudlensai1.streamlit.app/)  
+**GitHub Repository:** [https://github.com/Manish-Patil33/FraudLens-Al-](https://github.com/Manish-Patil33/FraudLens-Al-)  
 
 ---
 
@@ -199,7 +202,11 @@ Evaluated on the held-out test batch:
 
 ## 9. Deployment & Application (Rubric 9 — 5 Marks)
 
-The solution is packaged as a production-ready **Streamlit Web Application (`app.py`)**:
+The solution is live in production on Streamlit Cloud:
+- 🌐 **Live Deployed Web Application**: [https://fraudlensai1.streamlit.app/](https://fraudlensai1.streamlit.app/)
+- 💻 **GitHub Repository**: [https://github.com/Manish-Patil33/FraudLens-Al-](https://github.com/Manish-Patil33/FraudLens-Al-)
+
+Key production features:
 - **Tab 1: Live Transaction Scoring Terminal**: Real-time interactive scoring with dynamic risk gauge, preset fraud/legitimate case studies, dual-engine probability breakdown, and plain-English risk factor attribution.
 - **Tab 2: Batch Transaction Scanner**: Enterprise CSV upload or 1-click test batch simulation with instant risk tier classification, filtering, and exportable CSV reports.
 - **Tab 3: Model Evaluation & Performance Lab**: Comparative algorithm leaderboard, interactive ROC curves, Precision-Recall curves, and confusion matrix.
