@@ -112,8 +112,7 @@ with st.sidebar:
             "📁 Batch Transaction Scanner",
             "📊 Model Evaluation & Lab",
             "💰 Financial ROI Calculator",
-            "📈 Exploratory Data Analytics",
-            "📖 Architecture & PBL Guidelines"
+            "📈 Exploratory Data Analytics"
         ],
         index=0
     )
@@ -122,8 +121,6 @@ with st.sidebar:
     st.markdown("🟢 **Engine**: Active (Online)")
     st.markdown("⚡ **Avg Latency**: `12.4 ms`")
     st.markdown("🛡️ **Models Active**: `Random Forest + Isolation Forest`")
-    st.markdown("---")
-    st.caption("Machine Learning PBL Project | 100 Marks Rubric")
 
 
 # 1. LIVE TRANSACTION INSPECTOR
@@ -520,56 +517,4 @@ elif navigation == "📈 Exploratory Data Analytics":
             dict_list = [{"Feature Name": k, "Description": v} for k, v in d_dict.items()]
             st.table(pd.DataFrame(dict_list))
 
-
-# 6. ARCHITECTURE & PBL GUIDELINES
-elif navigation == "📖 Architecture & PBL Guidelines":
-    st.markdown('<div class="main-header">📖 Architecture & PBL Evaluation Rubrics</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">Complete mapping against the 100-mark PBL evaluation criteria.</div>', unsafe_allow_html=True)
-
-    st.markdown("""
-### **Dual-Engine Architecture: Supervised Classification + Anomaly Detection**
-```
-                       Raw Transaction Stream
-                                 │
-                      ┌──────────▼──────────┐
-                      │ Feature Engineering │
-                      │ - Balance Deltas    │
-                      │ - Liquidation Flags │
-                      │ - Cyber Risk Scores │
-                      └──────────┬──────────┘
-                                 │
-                 ┌───────────────┴───────────────┐
-                 │                               │
-        ┌────────▼────────┐             ┌────────▼────────┐
-        │   Supervised    │             │   Unsupervised  │
-        │ Classifier (RF) │             │ IsolationForest │
-        │ (Known Patterns)│             │ (Zero-Day Novel)│
-        └────────┬────────┘             └────────┬────────┘
-                 │ P_class                       │ S_anomaly
-                 └───────────────┬───────────────┘
-                                 │
-                 ┌───────────────▼───────────────┐
-                 │   FraudLens Fusion Engine     │
-                 │ Risk = 0.7*P_clf + 0.3*S_ano  │
-                 └───────────────┬───────────────┘
-                                 │
-        ┌────────────────────────┼────────────────────────┐
-        │                        │                        │
-  [Score < 35]             [35 <= Score < 75]        [Score >= 75]
-    APPROVE                  CHALLENGE MFA             AUTO-BLOCK
- (Frictionless)           (Step-Up Security)      (Card Restrict/Alert)
-```
-
-### **100-Mark Rubric Compliance Checklist**
-1. **Problem Definition & Business Understanding (10/10)**: Clear problem statement, multi-stakeholder mapping, and financial KPIs.
-2. **Dataset & Data Understanding (10/10)**: 60,000 transaction benchmark mirroring PaySim with complete data dictionary.
-3. **Data Preprocessing & Cleaning (10/10)**: Zero duplicates, missing value imputation, robust scaling without data leakage.
-4. **Exploratory Data Analysis (EDA) (10/10)**: Five publication-grade figures covering class skew, transaction channels, amount distributions, and temporal signatures.
-5. **Feature Engineering & Selection (10/10)**: 15+ domain features including originator balance error, account drain flags, and cyber trust indices.
-6. **Model Selection & Implementation (15/15)**: Four supervised classifiers (Logistic Regression, Random Forest, HistGradientBoosting, XGBoost) and Isolation Forest anomaly detector.
-7. **Model Evaluation & Validation (15/15)**: PR-AUC gold standard, confusion matrices, ROC analysis, and optimal threshold tuning.
-8. **Business Insights & Recommendations (10/10)**: 3-tier risk routing (Approve, MFA, Block) and net dollar ROI balance sheet.
-9. **Deployment / Application (5/5)**: Live interactive Streamlit dashboard with real-time scoring, batch scanner, and ROI calculator.
-10. **Documentation & Presentation (5/5)**: Full Academic Project Report, Presentation Slides, Viva Q&A Guide, and complete GitHub README.
-    """)
 
